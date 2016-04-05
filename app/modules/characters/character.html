@@ -1,0 +1,14 @@
+<div class="leftSection">
+  <img ng-src = "{{charCtrl.image}}">
+  <h1>{{charCtrl.name}}</h1>
+  <p>{{charCtrl.description}}</p>
+</div>
+
+<div class="rightSection">
+  <h2>Events</h2>
+  <ul class="eventsList">
+    <li ng-repeat="event in charCtrl.events">
+      <a ui-sref="events({ id: event.id })"><img ng-src="{{event.thumbnail.path}}.{{event.thumbnail.extension}}">{{event.title}}</a>
+    </li>
+  </ul>
+</div>

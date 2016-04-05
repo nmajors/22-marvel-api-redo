@@ -46,9 +46,32 @@ class CharactersController {
 
 	constructor($http, $stateParams) {
     this._$http = $http;
+		this.$stateParams = $stateParams;
+		this.getData();
 	}
 
   getData() {
+		this._$http
+			.get(`http://gateway.marvel.com:80/v1/public/characters?name=${encodeURI(this.$stateParams.name)}&apikey=ed7601d2962065f2fc12241cbc32a585`)
+			.then((response) =>{
+				console.log(response);
+				this.name = response.data.data.results[0].name;
+				this.id = response.data.data.results[0].id;
+				this.description = response.data.data.results[0].description;
+				this.image = `${response.data.data.results[0].thumbnail.path}.${response.data.data.results[0].thumbnail.extension}`;
+				console.log(this.image);
+
+				this._$http
+					.get(`http://gateway.marvel.com:/v1/public/characters/${encodeURI(this.id)}/events?apikey=ed7601d2962065f2fc12241cbc32a585`)
+					.then((response) =>{
+						console.log(response);
+						this.events = response.data.data.results;
+						console.log(this.events);
+
+					});
+
+			})
+
   }
 
 }

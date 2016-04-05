@@ -22,6 +22,7 @@ let App = angular.module('app', ['ui.router', 'tiy.characters', 'tiy.events']);
 */
 
 function config($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/characters/Captain America');
 }
 
 App.config(config);

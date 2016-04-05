@@ -35,13 +35,29 @@
 
 */
 
-class EventssController {
+class EventsController {
 
 	constructor($http, $stateParams) {
     this._$http = $http;
+		this.$stateParams = $stateParams;
+		this.id = this.$stateParams.id;
+		this.getData();
 	}
 
   getData() {
+		this._$http
+			.get(`http://gateway.marvel.com:80/v1/public/events/${encodeURI(this.$stateParams.id)}?apikey=ed7601d2962065f2fc12241cbc32a585`)
+			.then((response) => {
+				console.log(response);
+				// Save title, description, characters and image as properties on this.
+				// Remember that you have to assemble image from the thumbnail
+				// properties on the response.
+				this.title = response.data.data.results[0].title;
+				this.description = response.data.data.results[0].description;
+				this.characters = response.data.data.results[0].characters.items;
+				this.image = `${response.data.data.results[0].thumbnail.path}.${response.data.data.results[0].thumbnail.extension}`;
+				console.log(this.characters);
+			})
   }
 
 }

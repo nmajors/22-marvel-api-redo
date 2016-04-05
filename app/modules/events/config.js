@@ -7,7 +7,7 @@
   to set up your routing.
 
   STEP 1: Use $stateProvider.state to add a single route called
-          characters that points to /events/:id
+          events that points to /events/:id
 
           It should use the EventsController and call it eventCtrl.
 
@@ -15,6 +15,12 @@
           we use require() to include templates!
 */
 function config($stateProvider) {
+  $stateProvider
+    .state('events', {
+      url: '/events/:id',
+      controller: 'EventsController as eventCtrl',
+      template: require('./event.html')
+  });
 }
 
 export default config;
